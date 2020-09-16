@@ -10,20 +10,16 @@ const activeTag = e => {
   if (target.classList.contains('filter')) {
     target.classList.toggle('checked');
     const tag = target.dataset.color;
-    if (target.classList.contains('checked')) {
-      selectedTags.add(tag);
-    } else {
-      selectedTags.delete(tag);
-    }
-    if (selectedTags.size > 0) {
-			cartWrapper.textContent = '';
-			const newcards = [...cards].filter(card => selectedTags.has(card.dataset.color));
-			cartWrapper.append(...newcards);
-    } else if (selectedTags.size <= 0) {
-			cartWrapper.textContent = '';
-			cartWrapper.append(...cards);
-		}
+    target.classList.contains('checked') ? selectedTags.add(tag) : selectedTags.delete(tag);
   }
+  if (selectedTags.size > 0) {
+		cartWrapper.textContent = '';
+		const newcards = [...cards].filter(card => selectedTags.has(card.dataset.color));
+		cartWrapper.append(...newcards);
+  } else if (selectedTags.size <= 0) {
+		cartWrapper.textContent = '';
+		cartWrapper.append(...cards);
+	}
 };
 
 tagsWrapper.addEventListener('click', activeTag);
